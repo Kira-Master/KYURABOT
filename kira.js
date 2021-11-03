@@ -241,77 +241,7 @@ const isAfk = (idi) => {
     })
     return status
 }
-const limitAdd = (sender) => {
-let position = false
-Object.keys(_limit).forEach((i) => {
-if (_limit[i].id == sender) {
-position = i
-}
-})
-if (position !== false) {
-_limit[position].limit += 1
-fs.writeFileSync('./database/limit.json', JSON.stringify(_limit))
-}
-}
-// givelimit
-giveLimit = function(pemain, duit, _db){
-    let position = false
-    Object.keys(_db).forEach((i) => {
-        if (_db[i].id === pemain) {
-            position = i
-        }
-    })
-    if (position !== false) {
-        _db[position].limit -= duit
-        fs.writeFileSync('./database/limit.json', JSON.stringify(_db))
-    } else {
-        const njt = duit - duit - duit
-        const bulim = ({
-            id: pemain,
-            limit: njt
-                })
-        _db.push(bulim)
-        fs.writeFileSync('./database/limit.json', JSON.stringify(_db))
-    }
-}
-//----limit
-const isLimit = (sender) => {
-let position = false
-for (let i of _limit) {
-if (i.id === sender) {
-let limits = i.limit
-if (limits >= settings.limitCount) {
-position = true
-return true
-} else {
-_limit
-position = true
-return false
-}
-}
-}
-if (position === false) {
-const obj = {
-id: sender,
-limit: 1
-}
-_limit.push(obj)
-fs.writeFileSync('./database/limit.json', JSON.stringify(_limit))
-return false
-}
-}
-const bayarLimit = (sender, amount) => {
-let position = false
-Object.keys(_limit).forEach((i) => {
-if (_limit[i].id === sender) {
-position = i
-}
-})
-if (position !== false) {
-_limit[position].limit -= amount
-fs.writeFileSync('./database/limit.json', JSON.stringify(_limit))
-}
-}
+//----set cmd
 const addCmd = (id, command) => {
     const obj = { id: id, chats: command }
     scommand.push(obj)
@@ -1895,7 +1825,12 @@ await limitAdd(sender)
 break
 case 'ceklimit':
 if (!isRegister) return reply(mess.regist)
-checkLimit(sender)
+if (mentioned.length !== 0){
+                    textImg(`Limit : ${_prem.checkPremiumUser(mentioned[0], premium) ? 'Unlimited' : `${getLimit(mentioned[0], limitCount, limit)}/${limitCount}`}\nLimit Game : ${cekGLimit(mentioned[0], gcount, glimit)}/${gcount}\nBalance : $${getBalance(mentioned[0], balance)}\n\nKamu dapat membeli limit dengan ${prefix}buylimit dan ${prefix}buyglimit untuk membeli game limit`)
+                } else {
+                    textImg(`Limit : ${isPremium ? 'Unlimited' : `${getLimit(sender, limitCount, limit)}/${limitCount}`}\nLimit Game : ${cekGLimit(sender, gcount, glimit)}/${gcount}\nBalance : $${getBalance(sender, balance)}\n\nKamu dapat membeli limit dengan ${prefix}buylimit dan ${prefix}buyglimit untuk membeli game limit`)
+                }
+                break
 break
 case 'btl':
 if (!isOwner && !mek.key.fromMe) return reply(mess.only.ownerB)
