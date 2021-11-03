@@ -92,6 +92,8 @@ const { herolist } = require('./lib/herolist.js')
 const { herodetails } = require('./lib/herodetail.js')
 const { mediafireDl } = require('./lib/mediafire.js')
 const { pinterest } = require('./lib/pinterest')
+const { isLimit, limitAdd, getLimit, giveLimit, addBalance, kurangBalance, getBalance, isGame, gameAdd, givegame, cekGLimit } = require('../lib/limit')
+const _prem = require('../lib/premium')
 const { addCommands, checkCommands, deleteCommands } = require('./lib/autoresp')
 const { yta, ytv, buffer2Stream, ytsr, baseURI, stream2Buffer, noop } = require('./lib/ytdl')
 const { getBuffer, getGroupAdmins, getRandom, start, info, success, close } = require('./lib/functions')
@@ -117,11 +119,13 @@ const setik = JSON.parse(fs.readFileSync('./database/setik.json'))
 const vien = JSON.parse(fs.readFileSync('./database/vien.json'))
 const imagi = JSON.parse(fs.readFileSync('./database/imagi.json'))
 const bad = JSON.parse(fs.readFileSync('./database/bad.json'))
-const _limit = JSON.parse(fs.readFileSync('./database/limit.json'));
+const limit = JSON.parse(fs.readFileSync('./database/limit.json'))
+const glimit = JSON.parse(fs.readFileSync('./database/glimit.json'))
 const commandsDB = JSON.parse(fs.readFileSync('./database/commands.json'))
 const premium = JSON.parse(fs.readFileSync('./database/premium.json'))
 const tictactoe = JSON.parse(fs.readFileSync("./database/tictactoe.json"))
 const antilink = JSON.parse(fs.readFileSync('./database/antilink.json'))
+const antiwame = JSON.parse(fs.readFileSync('./database/antiwame.json'))
 const welkom = JSON.parse(fs.readFileSync('./database/welkom.json'))
 const mute = JSON.parse(fs.readFileSync('./database/mute.json'))
 const settings = JSON.parse(fs.readFileSync('./settings.json'))
@@ -415,7 +419,7 @@ try {
 		const senderNumber = sender.split("@")[0] 
 		const isRegister = checkRegisteredUser(sender)
 		const conts = mek.key.fromMe ? kira.user.jid : kira.contacts[mek.sender]
-        const pushname = mek.key.fromMe ? kira.user.name : !conts ? '-' : conts.notify || conts.vname || conts.name || '-'   
+       	 	const pushname = mek.key.fromMe ? kira.user.name : !conts ? '-' : conts.notify || conts.vname || conts.name || '-'   
 		const totalchat = await kira.chats.all()
 		const groupMetadata = isGroup ? await kira.groupMetadata(from) : ''
 		const groupName = isGroup ? groupMetadata.subject : ''
@@ -433,7 +437,7 @@ try {
 		const isWelkom = isGroup ? welkom.includes(from) : false
 		const isAuto = isGroup ? autosticker.includes(from) : false
 		const isMuted = isGroup ? mute.includes(from) : false
-        const isPremium = premium.includes(sender) || isOwner
+        	const isPremium = premium.includes(sender) || isOwner
 		const isBotGroupAdmins = groupAdmins.includes(botNumber) || false
 		const isButton = (type == 'buttonsResponseMessage') ? mek.message.buttonsResponseMessage.selectedDisplayText : ''
 		const isUrl = (url) => {
