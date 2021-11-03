@@ -1,10 +1,11 @@
 /*
-SCRIPT BY Dcode-Denps
+SCRIPT BY Dcode-Denpa
 Recode By Kira-Master
 
 Added
 - Verify Feature
 - Limit Feature
+- Premium Feature
 - NSFW Menu
 Much more
 */
@@ -1890,6 +1891,7 @@ break
 case 'ceklimit':
 if (!isRegister) return reply(mess.regist)
 checkLimit(sender)
+break
 case 'btl':
 if (!isOwner && !mek.key.fromMe) return reply(mess.only.ownerB)
 reply(`transaksi dibatalkan oleh owner dengan *jumlah*: ${lim}`)
