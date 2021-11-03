@@ -1825,8 +1825,8 @@ await limitAdd(sender)
 break
 case 'ceklimit':
 if (!isRegister) return reply(mess.regist)
-if (mentioned.length !== 0){
-                    textImg(`Limit : ${_prem.checkPremiumUser(mentioned[0], premium) ? 'Unlimited' : `${getLimit(mentioned[0], limitCount, limit)}/${limitCount}`}\nLimit Game : ${cekGLimit(mentioned[0], gcount, glimit)}/${gcount}\nBalance : $${getBalance(mentioned[0], balance)}\n\nKamu dapat membeli limit dengan ${prefix}buylimit dan ${prefix}buyglimit untuk membeli game limit`)
+if (mentionedJid.length !== 0){
+                    textImg(`Limit : ${_prem.checkPremiumUser(mentionedJid[0], premium) ? 'Unlimited' : `${getLimit(mentionedJid[0], limitCount, limit)}/${limitCount}`}\nLimit Game : ${cekGLimit(mentionedJid[0], gcount, glimit)}/${gcount}\nBalance : $${getBalance(mentionedJid[0], balance)}\n\nKamu dapat membeli limit dengan ${prefix}buylimit dan ${prefix}buyglimit untuk membeli game limit`)
                 } else {
                     textImg(`Limit : ${isPremium ? 'Unlimited' : `${getLimit(sender, limitCount, limit)}/${limitCount}`}\nLimit Game : ${cekGLimit(sender, gcount, glimit)}/${gcount}\nBalance : $${getBalance(sender, balance)}\n\nKamu dapat membeli limit dengan ${prefix}buylimit dan ${prefix}buyglimit untuk membeli game limit`)
                 }
